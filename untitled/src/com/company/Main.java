@@ -28,8 +28,14 @@ public class Main {
             Record record = new Record(Integer.parseInt(separatedData[0]), Integer.parseInt(separatedData[1]), separatedData[2], separatedData[3]);
             records.add(record);
 
+            Date lastDate;
+            if (record.getFinalDate().equals("NULL")) {
+                lastDate = Calendar.getInstance().getTime();
+            } else {
+                lastDate = new SimpleDateFormat("yyyy-MM-dd").parse(record.getFinalDate());
+            }
+
             Date firstDate = new SimpleDateFormat("yyyy-MM-dd").parse(record.getStartingDate());
-            Date lastDate = new SimpleDateFormat("yyyy-MM-dd").parse(record.getFinalDate());
             List<Date> dates = new ArrayList<>();
             dates.add(firstDate);
             dates.add(lastDate);
@@ -106,8 +112,6 @@ public class Main {
         } else {
             System.out.println("There aren't any employees working together on same project.");
         }
-
-
     }
 
     private static long calculateDays(Integer project, List<Employee> employees, int first, int second) {
